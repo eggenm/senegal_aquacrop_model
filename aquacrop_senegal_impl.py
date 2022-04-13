@@ -34,7 +34,7 @@ def get_date():
 
 
 def get_climate_file(climate_zone):
-    data_folder = Path("C:/SenegalGIS/weather/aquacrop_python/")
+    data_folder = Path("C:/SenegalGIS/senegal_aquacrop_model/weather/aquacrop_python/")
     clmate_files = {'sahel': 'Louga_Nasa_chirps_aquacropOut.TXT',
                     'sudan_savanna': 'Nioro_Nasa_chirps_aquacropOut.TXT',#'Tiel_Nasa_chirps_aquacropOut.txt' ,#,
                     'guinea_savanna': 'SamYoroGueye_Nasa_chirps_aquacropOut.txt',
@@ -50,7 +50,7 @@ def prep_weather_data(climate_zone):
     file = get_climate_file(climate_zone)
     weather_data = prepare_weather(file)
     print(weather_data)
-    data_folder = Path("C:/SenegalGIS/weather/aquacrop_python/")
+    data_folder = Path("C:/SenegalGIS/senegal_aquacrop_model/weather/aquacrop_python/")
     #file = data_folder / 'BassinArachidier_weather_from_python.csv'
     #weather_data.to_csv(file)
     return weather_data
@@ -127,7 +127,7 @@ if __name__ == "__main__":
             weather = prep_weather_data(climate_zone)
             for planting_date in ['7/16', '7/21', '7/26', '8/1', '8/6', '8/11', '8/16', '8/21']:#, '8/26', '8/31', '9/5', '9/10']:
                 crop.PlantingDate = planting_date
-                for run_num in range(0, 849, 19):#1000):
+                for run_num in range(0, 849, 199):#1000):
                     soil_id, soil = prep_soil(climate_zone, run_num)
                     if soil :#soil returns false if missing data for a point
                         model_run = init_model(weather, soil, crop)
