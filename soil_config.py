@@ -2,7 +2,7 @@ from aquacrop.core import *
 from aquacrop.classes import *
 import pandas as pd
 
-soils_csv = pd.read_csv('data/AEZ_samples_with_soil.csv')
+soils_csv = pd.read_csv('data/AEZ_samples_with_soil2.txt')
 #print(soils_csv.columns)
 
 columns_by_layer = dict(  { 1:('sand_0_5cm', 'clay_0_5cm', 'soc_0_5cm'),
@@ -15,12 +15,13 @@ columns_by_layer = dict(  { 1:('sand_0_5cm', 'clay_0_5cm', 'soc_0_5cm'),
 layer_thickness = [0.05, 0.1, 0.15, 0.3, 0.4, 1]
 
 def build_soil_db():
-    soils_csv = pd.read_csv('data/AEZ_samples_with_soil.csv')
+    soils_csv = pd.read_csv('data/AEZ_samples_with_soil2.txt')
     print(soils_csv.loc[soils_csv['region']=='Zone des Niayes'])
     #print(soils_csv.index)
 
 def get_soil(key, climate):
-    print(" KEY:  ", key, "ZONE:  ", climate)
+    #print(" KEY:  ", key, "ZONE:  ", climate)
+
     #sand = soils_dict[climate][key]['prop1']
     #clay = soils_dict[climate][key]['prop2']
     #org_matter = soils_dict[climate][key]['prop3']
@@ -28,23 +29,23 @@ def get_soil(key, climate):
     #custom.add_layer_from_texture(thickness=custom.zSoil, Sand=sand, Clay=clay, OrgMat=org_matter, penetrability=100)
     #soil = SoilClass('custom', prop1=soil-prop1, prop2=soil-prop2, ...)
     zone_soil = soils_csv.loc[soils_csv['region'] == climate]
-    adjustment = min(zone_soil['ID'])
+    adjustment = min(zone_soil['CID'])*1000
     key = adjustment + key
     soil_id =  key
-    print('SOIL ID:', soil_id)
+    #print('SOIL ID:', soil_id)
     for layer in range(1,7):
     #     layer_dict = getlayer(layer)
     #     thickness = thickness_by_layer[layer]
     #     sand = layer_dict[key][sand]
     #     clay = layer_dict[key][clay]
-        print('LAYER: ' , layer)
+        #print('LAYER: ' , layer)
 
         sand = zone_soil[columns_by_layer[layer][0]][key]/10
         if(layer==1 and sand <=0):
             return False, False
-        print('Sand:  ', sand)
+       # print('Sand:  ', sand)
         clay = soils_csv.loc[soils_csv['region'] == climate][columns_by_layer[layer][1]][key]/10
-        print('Clay:  ', clay)
+      ##  print('Clay:  ', clay)
         org_matter = soils_csv.loc[soils_csv['region'] == climate][columns_by_layer[layer][2]][key]/100
         org_matter_previous = 0
         if org_matter>0 :
@@ -52,9 +53,9 @@ def get_soil(key, climate):
         else:#TODO, how to deal with missing org matter in deeper layers
             org_matter = org_matter_previous
         org_matter_previous = org_matter
-        print('OrgMatter:  ', org_matter)
+        #print('OrgMatter:  ', org_matter)
         thickness = layer_thickness[layer-1]
-        print('Thick', thickness)
+       #int('Thick', thickness)
         custom.add_layer_from_texture(thickness=thickness, Sand=sand, Clay=clay, OrgMat=org_matter, penetrability=100 )
     return soil_id, custom
 
