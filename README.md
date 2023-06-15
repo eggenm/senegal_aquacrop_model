@@ -10,7 +10,7 @@ Aquacrop python documentation here as well: https://www.sciencedirect.com/scienc
 
 
 ## Custom python files
-***aquacrop_senegal_impl.py***: This controls the simulation, looping over the major variable that can be set for our exercise.
+***aquacrop_senegal_impl.py***: This controls the simulation, looping over the major variable that can be set for our exercise.<br>
 ***crop_config.py***: Basically just a big lookup table for the crop and its properties. We have 2 crops, 1 sorghum and 1 millet configured from the literature.
 ***soil_config.py***: Build soils, particularly the individual, custom layers of the soil profile, from the SoilGrids based datafile into an Aquacrop soil format.
 
