@@ -1,6 +1,6 @@
 # senegal_crop_model
 
-## SUMMARY
+## Summary
 This project implements AquacropOS-Py to trun simulations of millet or sorghum.<br>
 The  model controller is aquacrop_senegal_impl.py.<br>
 It makes use of crop_config.py and soil_config.py to build soil and crop inputs.<br>
